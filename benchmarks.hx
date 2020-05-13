@@ -7,9 +7,9 @@ class Benchmarks extends hxp.Script
         super();
 
         run("testing with Vector:");
-        run("testing with Array:", ["-D PixelMatrixUseArray"]);
-        run("testing with UInt32Array:", ["-D PixelMatrixUseUInt32Array"]);
-        run("testing with Bytes:", ["-D PixelMatrixUseBytes"]);
+        run("testing with Array:", ["-D", "PixelMatrixUseArray"]);
+        run("testing with UInt32Array:", ["-D", "PixelMatrixUseUInt32Array"]);
+        run("testing with Bytes:", ["-D", "PixelMatrixUseBytes"]);
     }
 
     function run(desc, args = null)
@@ -18,7 +18,7 @@ class Benchmarks extends hxp.Script
 
         var arguments = [ "benchmarks.hxml" ];
         if (args != null) arguments = arguments.concat(args);
-        
+        		
 		System.runCommand("", "haxe", arguments);
 
         var outputDir = "Export/benchmarks";
@@ -27,7 +27,7 @@ class Benchmarks extends hxp.Script
         System.runCommand(outputDir, "node", ["benchmarks.js"]);
 
         Log.info("------------------- CPP --------------------------------------");
-        System.runCommand(outputDir, ((System.hostPlatform == LINUX) ? "./" : "") + "Benchmarks", []);
+        System.runCommand(outputDir, ((System.hostPlatform != WINDOWS) ? "./" : "") + "Benchmarks", []);
         
 		Log.info("------------------- Neko -------------------------------------");
         System.runCommand(outputDir, "neko", [ "benchmarks.n" ]);
